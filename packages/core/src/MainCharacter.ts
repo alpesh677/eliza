@@ -7,3 +7,5 @@ export const mainCharacter: Character = {
     modelProvider: ModelProviderName.GAIANET,
     name: "eliza_reboot",
 };
+
+// changes for git push
