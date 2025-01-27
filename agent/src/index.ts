@@ -11,7 +11,6 @@ import { SlackClientInterface } from "@elizaos/client-slack";
 import { TelegramClientInterface } from "@elizaos/client-telegram";
 import { TwitterClientInterface } from "@elizaos/client-twitter";
 // import { ReclaimAdapter } from "@elizaos/plugin-reclaim";
-import { DirectClient } from "@elizaos/client-direct";
 import { PrimusAdapter } from "@elizaos/plugin-primus";
 
 import {
@@ -56,6 +55,7 @@ import {
     tradePlugin,
     webhookPlugin,
 } from "@elizaos/plugin-coinbase";
+import { mainCharacter } from "./MainCharacter";
 import { coinmarketcapPlugin } from "@elizaos/plugin-coinmarketcap";
 import { coingeckoPlugin } from "@elizaos/plugin-coingecko";
 import { confluxPlugin } from "@elizaos/plugin-conflux";
@@ -102,7 +102,6 @@ import net from "net";
 import path from "path";
 import { fileURLToPath } from "url";
 import yargs from "yargs";
-import {dominosPlugin} from "@elizaos/plugin-dominos";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -284,7 +283,7 @@ export async function loadCharacters(
 
     if (loadedCharacters.length === 0) {
         elizaLogger.info("No characters found, using default character");
-        loadedCharacters.push(defaultCharacter);
+        loadedCharacters.push(mainCharacter);
     }
 
     return loadedCharacters;
@@ -1020,7 +1019,7 @@ const startAgents = async () => {
     let serverPort = parseInt(settings.SERVER_PORT || "3000");
     const args = parseArguments();
     let charactersArg = args.characters || args.character;
-    let characters = [defaultCharacter];
+    let characters = [mainCharacter];
 
     if (charactersArg) {
         characters = await loadCharacters(charactersArg);
